@@ -1,0 +1,90 @@
+I"r!<p>Hopefully, by the end of this blog you should be able to train yur own model to generate high-quality cartoon images from real-world photos.</p>
+
+<h3 id="purpose-of-the-blog">Purpose of the blog:</h3>
+<p>This blog is a walk through to train your custom model based on the state of the technique in deep learning.</p>
+
+<p><img src="/images/demo_kumari.jpg" alt="Result" /></p>
+
+<h3 id="resources">Resources</h3>
+<p>The paper can be found <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf">here at cartoon-gan paper</a>.
+Majority of the codes are taken from cartoon-gan-github-source <a href="https://github.com/mnicnc404/CartoonGan-tensorflow">cartoon-gan-github-source</a>. 
+I have merely changed anything in the source code. You could follow the instructions there as well.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+<p>This blog would be useful for those who have very basic knowledge of Python programming language and some familiarity with unix shell programming. If you are not sure please go ahead to watch some useful tutorials</p>
+
+<h3 id="introduction">Introduction</h3>
+
+<h4 id="every-adult-is-an-obsolete-children">“Every adult is an obsolete children”</h4>
+<p>Cartoons are something which we have all watched while growing up. It impacts our lives in a positive way. They are entertaining, simple, and being utilized to convey very important messages.
+Our objective is to learn how to use GAN in order to transform real world images into a cartoon character of our desired choice. 
+While task might seem similar to painting but making cartoons are much more challenging. Cartoons have some high level simplification &amp; abstraction, clear edges, smooth color
+shading with simple textures.</p>
+
+<h3 id="what-is-gan">What is GAN?</h3>
+<p>“GAN is the most interesting idea in the last ten years in machine learning”
+-Yann LeCun, Director, Facebook AI</p>
+
+<p>GAN(Generative Adversarial Network) is one of the best architecture of the past decade when it comes to deep learning. These are generative models, implies, your models objective is to yield. Yields can be anything images,text, videos, the potential is enormous.</p>
+
+<p>Basic architecture consists of generator and discriminator. Generators, basically, generate some arbitraty guesses. Discriminator, on the other hand is learning to classify real v fake entities. The objective of the generator is to convince(fool) the discriminator that generated data is real enough.</p>
+
+<p>Let us try to under the paper. I hope you have read it once, if not please go ahead.</p>
+
+<p>The architecture of CartoonGAN is shown below:</p>
+
+<p><img src="/images/gan_arch.png" alt="GAN architecture" /></p>
+
+<h4 id="two-player-gamemin-max-objective-function">Two player game(min-max objective function)</h4>
+
+<!-- $$
+\begin{align}
+  \nabla\times\vec{\mathbf{B}}-\frac{1}{c}\frac{\partial\vec{\mathbf{E}}}{\partial t} &= \frac{4\pi}{c}\vec{\mathbf{j}} \\
+  \nabla\cdot\vec{\mathbf{E}} &= 4\pi\rho \\
+  \nabla\times\vec{\mathbf{E}}+\frac{1}{c}\frac{\partial\vec{\mathbf{B}}}{\partial t} &= \vec{\mathbf{0}} \\
+  \nabla\cdot\vec{\mathbf{B}} &= 0
+\end{align}
+$$
+ -->
+
+<script type="math/tex; mode=display">min max (D, G) = E x∼p data (x) [logD(x)] + E x∼p z (z) [log(1 − D ((G z) )))]</script>
+
+<h4 id="time-for-action-with-some-codes">Time for action with some codes</h4>
+<p>Hope you have <a href="https://colab.research.google.com/notebooks/welcome.ipynb#recent=true">signed in</a> and opened the colab notebook in your browser. Paste the code snippets below and run one after the other. Check your outputs!!!</p>
+
+<p>Here is the code to perform model inferencing with the trained model found in this paper.</p>
+
+<p>Clone the repository from github</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"""Code copied from "</span><span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">mnicnc404</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="s2">"  """</span>
+
+<span class="n">import</span> <span class="n">os</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="s2">"CartoonGan-tensorflow"</span>
+<span class="o">!</span><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="no">HiteshAI</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="p">.</span><span class="nf">git</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">repo</span><span class="p">))</span></code></pre></figure>
+
+<p>Import necessary dependancies</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">from</span> <span class="no">IPython</span><span class="p">.</span><span class="nf">display</span> <span class="n">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="nb">display</span><span class="p">,</span> <span class="no">Image</span>
+<span class="o">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span><span class="o">==</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">alpha0</span>
+<span class="o">!</span><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">team</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">contrib</span><span class="p">.</span><span class="nf">git</span> <span class="p">\</span>
+    <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">keras</span><span class="o">-</span><span class="n">contrib</span> <span class="p">\</span>
+    <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">convert_to_tf_keras</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
+    <span class="o">&amp;&amp;</span> <span class="no">USE_TF_KERAS</span><span class="o">=</span><span class="mi">1</span> <span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="nf">py</span> <span class="n">install</span>
+<span class="n">import</span> <span class="n">tensorflow</span> <span class="n">as</span> <span class="n">tf</span>
+<span class="n">tf</span><span class="p">.</span><span class="nf">__version__</span>
+<span class="n">clear_output</span><span class="p">()</span></code></pre></figure>
+
+<p>Use the script to perform model infrencing on your image.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
+    <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> <span class="p">\</span>
+    <span class="o">--</span><span class="n">all_styles</span> <span class="p">\</span>
+    <span class="o">--</span><span class="n">comparison_view</span> <span class="n">horizontal</span> <span class="p">\</span>
+    <span class="o">--</span><span class="n">max_resized_height</span> <span class="mi">800</span></code></pre></figure>
+
+<!-- Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk]. -->
+
+<p>If you want to contribute, please raise an <a href="https://github.com/hiteshai/CartoonGan-tensorflow">PR here</a></p>
+
+:ET

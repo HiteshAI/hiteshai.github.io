@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Custom train your model using CartoonGAN"
+title:  "Model Inferencing using CartoonGAN"
 date:   2020-01-18 14:55:04 +0545
 categories: jekyll blog
 

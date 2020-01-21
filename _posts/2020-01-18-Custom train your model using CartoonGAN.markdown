@@ -5,7 +5,7 @@ date:   2020-01-18 14:55:04 +0545
 categories: jekyll blog
 
 ---
-Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos. 
+Hopefully, by the end of this blog you should be able to train yur own model to generate high-quality cartoon images from real-world photos. 
 
 
 ### Purpose of the blog:
