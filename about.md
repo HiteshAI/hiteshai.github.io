@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Hi all, I am a machine learning enthusiast from Nepal. I do projects on ML. Please feel free to contact me if you are interested in collaboration.
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+Blogs shall mainly on focused on styding state of the art papers and codes in machine learning. Objective is make everyone productive immediately.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[hitesh.jha415@gmail.com](mailto:hitesh.jha415@gmail.com)
