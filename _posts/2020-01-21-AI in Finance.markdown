@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Transform real world images to cartoon"
+title:  "Custom train your model using CartoonGAN"
 date:   2020-01-18 14:55:04 +0545
 categories: jekyll blog
 
@@ -11,9 +11,6 @@ Hopefully, by the end of this blog you should be able to generate high-quality c
 ### Purpose of the blog:
 This blog is a walk through to train your custom model based on the state of the technique in deep learning. 
 
-![Result](/images/demo_kumari.jpg)
-
-
 ### Resources
 The paper can be found [here at cartoon-gan paper][cartoon-gan-paper].
 Majority of the codes are taken from cartoon-gan-github-source [cartoon-gan-github-source]. 
@@ -21,7 +18,6 @@ I have merely changed anything in the source code. You could follow the instruct
 
 ### Prerequisites
 This blog would be useful for those who have very basic knowledge of Python programming language and some familiarity with unix shell programming. If you are not sure please go ahead to watch some useful tutorials
-
 
 
 ### Introduction

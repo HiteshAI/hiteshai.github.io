@@ -1,7 +1,9 @@
-I" <p>Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos.</p>
+I"[!<p>Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos.</p>
 
 <h3 id="purpose-of-the-blog">Purpose of the blog:</h3>
 <p>This blog is a walk through to train your custom model based on the state of the technique in deep learning.</p>
+
+<p><img src="/images/demo_kumari.jpg" alt="Result" /></p>
 
 <h3 id="resources">Resources</h3>
 <p>The paper can be found <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf">here at cartoon-gan paper</a>.
@@ -47,10 +49,12 @@ $$
 
 <script type="math/tex; mode=display">min max (D, G) = E x∼p data (x) [logD(x)] + E x∼p z (z) [log(1 − D ((G z) )))]</script>
 
+<h4 id="time-for-action-with-some-codes">Time for action with some codes</h4>
+<p>Hope you have <a href="https://colab.research.google.com/notebooks/welcome.ipynb#recent=true">signed in</a> and opened the colab notebook in your browser. Paste the code snippets below and run one after the other. Check your outputs!!!</p>
+
 <p>Here is the code to perform model inferencing with the trained model found in this paper.</p>
 
-<p>###Time for action with some codes
-Hope you have <a href="https://colab.research.google.com/notebooks/welcome.ipynb#recent=true">signed in</a> and opened the colab notebook in your browser.</p>
+<p>Clone the repository from github</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"""Code copied from "</span><span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">mnicnc404</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="s2">"  """</span>
 
@@ -58,6 +62,8 @@ Hope you have <a href="https://colab.research.google.com/notebooks/welcome.ipynb
 <span class="n">repo</span> <span class="o">=</span> <span class="s2">"CartoonGan-tensorflow"</span>
 <span class="o">!</span><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="no">HiteshAI</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="p">.</span><span class="nf">git</span>
 <span class="n">os</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">repo</span><span class="p">))</span></code></pre></figure>
+
+<p>Import necessary dependancies</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">from</span> <span class="no">IPython</span><span class="p">.</span><span class="nf">display</span> <span class="n">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="nb">display</span><span class="p">,</span> <span class="no">Image</span>
 <span class="o">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span><span class="o">==</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">alpha0</span>
@@ -68,6 +74,8 @@ Hope you have <a href="https://colab.research.google.com/notebooks/welcome.ipynb
 <span class="n">import</span> <span class="n">tensorflow</span> <span class="n">as</span> <span class="n">tf</span>
 <span class="n">tf</span><span class="p">.</span><span class="nf">__version__</span>
 <span class="n">clear_output</span><span class="p">()</span></code></pre></figure>
+
+<p>Use the script to perform model infrencing on your image.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
     <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> <span class="p">\</span>
