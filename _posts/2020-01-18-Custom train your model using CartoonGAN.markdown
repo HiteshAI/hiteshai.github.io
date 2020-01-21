@@ -12,10 +12,12 @@ Hopefully, by the end of this blog you should be able to generate high-quality c
 This blog is a walk through to train your custom model based on the state of the technique in deep learning. 
 
 ### Resources
-The paper can be found [here at cartoon-gan paper][cartoon-gan-paper]. Majority of the codes are taken from cartoon-gan-github-source [cartoon-gan-github-source], I have merely changed anything in the source code. You could follow the instructions there as well. This shall be shorter and more direct approach of the same code.
+The paper can be found [here at cartoon-gan paper][cartoon-gan-paper].
+Majority of the codes are taken from cartoon-gan-github-source [cartoon-gan-github-source]. 
+I have merely changed anything in the source code. You could follow the instructions there as well. 
 
 ### Prerequisites
-This blog would be useful for those who have very basic knowledge of Python programming language and some familiarity with jupyter notebooks. If you are not sure please go ahead to watch some useful tutorials
+This blog would be useful for those who have very basic knowledge of Python programming language and some familiarity with unix shell programming. If you are not sure please go ahead to watch some useful tutorials
 
 
 ### Introduction
@@ -23,8 +25,6 @@ This blog would be useful for those who have very basic knowledge of Python prog
 #### "Every adult is an obsolete children"
 Cartoons are something which we have all watched while growing up. It impacts our lives in a positive way. They are entertaining, simple, and being utilized to convey very important messages.
 Our objective is to learn how to use GAN in order to transform real world images into a cartoon character of our desired choice. 
-
-
 While task might seem similar to painting but making cartoons are much more challenging. Cartoons have some high level simplification & abstraction, clear edges, smooth color
 shading with simple textures. 
 
@@ -48,8 +48,9 @@ The architecture of CartoonGAN is shown below:
 
 
 
+#### Two player game(min-max objective function)
 
-$$
+<!-- $$
 \begin{align}
   \nabla\times\vec{\mathbf{B}}-\frac{1}{c}\frac{\partial\vec{\mathbf{E}}}{\partial t} &= \frac{4\pi}{c}\vec{\mathbf{j}} \\
   \nabla\cdot\vec{\mathbf{E}} &= 4\pi\rho \\
@@ -57,27 +58,79 @@ $$
   \nabla\cdot\vec{\mathbf{B}} &= 0
 \end{align}
 $$
-
+ -->
  {% raw %}
-  $$a^2 + b^2 = c^2$$ --> note that all equations between these tags will not need escaping! 
+
+  $$ min max (D, G) = E x∼p data (x) [logD(x)] + E x∼p z (z) [log(1 − D ((G z) )))] $$	
+
  {% endraw %}
 
 
+#### Time for action with some codes
+Hope you have [signed in][colab-login] and opened the colab notebook in your browser. Paste the code snippets below and run one after the other. Check your outputs!!!
+
+Here is the code to perform model inferencing with the trained model found in this paper.
+
+
+
+Clone the repository from github
+{%highlight ruby%}
+
+"""Code copied from "https://github.com/mnicnc404/CartoonGan-tensorflow"  """
+
+import os
+repo = "CartoonGan-tensorflow"
+!git clone https://github.com/HiteshAI/CartoonGan-tensorflow.git
+os.chdir(os.path.join(repo))
+
+{%endhighlight%}
+
+
+Import necessary dependancies
+{%highlight ruby%}
+
+from IPython.display import clear_output, display, Image
+!pip install tensorflow-gpu==2.0.0-alpha0
+!git clone https://www.github.com/keras-team/keras-contrib.git \
+    && cd keras-contrib \
+    && python convert_to_tf_keras.py \
+    && USE_TF_KERAS=1 python setup.py install
+import tensorflow as tf
+tf.__version__
+clear_output()
+
+{%endhighlight%}
+
+Use the script to perform model infrencing on your image.
 {% highlight ruby %}
+!python cartoonize.py \
+    --batch_size 4 \
+    --all_styles \
+    --comparison_view horizontal \
+    --max_resized_height 800
 
-
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+
+
+
+<!-- Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk]. -->
+
+If you want to contribute, please raise an [PR here][myrepo-cartoongan] 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
 [cartoon-gan-paper]: http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf
 [cartoon-gan-github-source]:https://github.com/mnicnc404/CartoonGan-tensorflow
+[myrepo-cartoongan]: https://github.com/hiteshai/CartoonGan-tensorflow
+[colab-login]: https://colab.research.google.com/notebooks/welcome.ipynb#recent=true
+
+
+
+
+
+
+
 
