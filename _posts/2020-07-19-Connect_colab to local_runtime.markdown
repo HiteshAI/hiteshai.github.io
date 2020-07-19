@@ -46,11 +46,6 @@ Go to colab and select the option to connect to runtime at the top right of the 
 ![Result](/images/colab_scrt.png)
 
 
-
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
 [colab-login]: https://colab.research.google.com/notebooks/welcome.ipynb#recent=true
 
 [colab-runtime-steps]: https://research.google.com/colaboratory/local-runtimes.html

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Face recognition"
+title:  "Face recognition using Eigen face using Pytorch"
 date:   2020-01-18 14:55:04 +0545
 categories: jekyll blog
 
@@ -8,13 +8,13 @@ categories: jekyll blog
 
 
 
-# **Face Recognition using Eigenfaces**
+## Face Recognition using Eigenfaces**
 ---
 
 
 
 
-####We will be using [FEI Face Database](https://fei.edu.br/~cet/facedatabase.html)  for our face recognition purpose. 
+#### We will be using [FEI Face Database](https://fei.edu.br/~cet/facedatabase.html)  for our face recognition purpose. 
 *Datasets consist of faces of 200 people and each person has two frontal images (one with a neutral expression and the other with a smiling facial expression), there are 400 full frontal face images manually registered and cropped.*
 <br><br>**We will use normalized, equalized and cropped frontal face images.**
 
