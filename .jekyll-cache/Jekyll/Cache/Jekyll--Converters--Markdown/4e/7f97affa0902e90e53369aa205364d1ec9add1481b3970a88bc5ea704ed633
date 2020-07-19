@@ -1,4 +1,4 @@
-I" !<p>Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos.</p>
+I"É <p>Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos.</p>
 
 <h3 id="purpose-of-the-blog">Purpose of the blog:</h3>
 <p>This blog is a walk through to train your custom model based on the state of the technique in deep learning.</p>
@@ -75,10 +75,10 @@ $$
 
 <p>Use the script to perform model infrencing on your image.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">all_styles</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">comparison_view</span> <span class="n">horizontal</span> <span class="p">\</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="err">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> \
+    <span class="o">--</span><span class="n">all_styles</span> \
+    <span class="o">--</span><span class="n">comparison_view</span> <span class="n">horizontal</span> \
     <span class="o">--</span><span class="n">max_resized_height</span> <span class="mi">800</span></code></pre></figure>
 
 <!-- Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyllâ€™s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk]. -->

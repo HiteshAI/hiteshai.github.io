@@ -1,4 +1,4 @@
-I"[!<p>Hopefully, by the end of this blog you should be able to generate high-quality cartoon images from real-world photos.</p>
+I"Í<p>Hopefully, by the end of this blog you should be able to train yur own model to generate high-quality cartoon images from real-world photos.</p>
 
 <h3 id="purpose-of-the-blog">Purpose of the blog:</h3>
 <p>This blog is a walk through to train your custom model based on the state of the technique in deep learning.</p>
@@ -56,31 +56,32 @@ $$
 
 <p>Clone the repository from github</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"""Code copied from "</span><span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">mnicnc404</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="s2">"  """</span>
-
-<span class="n">import</span> <span class="n">os</span>
-<span class="n">repo</span> <span class="o">=</span> <span class="s2">"CartoonGan-tensorflow"</span>
-<span class="o">!</span><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="no">HiteshAI</span><span class="o">/</span><span class="no">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="p">.</span><span class="nf">git</span>
-<span class="n">os</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">repo</span><span class="p">))</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""Code copied from "https://github.com/mnicnc404/CartoonGan-tensorflow"  """</span>
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="s">"CartoonGan-tensorflow"</span>
+<span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">HiteshAI</span><span class="o">/</span><span class="n">CartoonGan</span><span class="o">-</span><span class="n">tensorflow</span><span class="o">.</span><span class="n">git</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">repo</span><span class="p">))</span>
+<span class="sb">``</span><span class="err">`</span></code></pre></figure>
 
 <p>Import necessary dependancies</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">from</span> <span class="no">IPython</span><span class="p">.</span><span class="nf">display</span> <span class="n">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="nb">display</span><span class="p">,</span> <span class="no">Image</span>
-<span class="o">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span><span class="o">==</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">alpha0</span>
-<span class="o">!</span><span class="n">git</span> <span class="nb">clone</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">team</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">contrib</span><span class="p">.</span><span class="nf">git</span> <span class="p">\</span>
-    <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">keras</span><span class="o">-</span><span class="n">contrib</span> <span class="p">\</span>
-    <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">convert_to_tf_keras</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
-    <span class="o">&amp;&amp;</span> <span class="no">USE_TF_KERAS</span><span class="o">=</span><span class="mi">1</span> <span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="nf">py</span> <span class="n">install</span>
-<span class="n">import</span> <span class="n">tensorflow</span> <span class="n">as</span> <span class="n">tf</span>
-<span class="n">tf</span><span class="p">.</span><span class="nf">__version__</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">Image</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span><span class="o">==</span><span class="mf">2.0.0</span><span class="o">-</span><span class="n">alpha0</span>
+<span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">team</span><span class="o">/</span><span class="n">keras</span><span class="o">-</span><span class="n">contrib</span><span class="o">.</span><span class="n">git</span> \
+    <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">keras</span><span class="o">-</span><span class="n">contrib</span> \
+    <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">convert_to_tf_keras</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">&amp;&amp;</span> <span class="n">USE_TF_KERAS</span><span class="o">=</span><span class="mi">1</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
 <span class="n">clear_output</span><span class="p">()</span></code></pre></figure>
 
 <p>Use the script to perform model infrencing on your image.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="p">.</span><span class="nf">py</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">all_styles</span> <span class="p">\</span>
-    <span class="o">--</span><span class="n">comparison_view</span> <span class="n">horizontal</span> <span class="p">\</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="err">!</span><span class="n">python</span> <span class="n">cartoonize</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">batch_size</span> <span class="mi">4</span> \
+    <span class="o">--</span><span class="n">all_styles</span> \
+    <span class="o">--</span><span class="n">comparison_view</span> <span class="n">horizontal</span> \
     <span class="o">--</span><span class="n">max_resized_height</span> <span class="mi">800</span></code></pre></figure>
 
 <!-- Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyllâ€™s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk]. -->

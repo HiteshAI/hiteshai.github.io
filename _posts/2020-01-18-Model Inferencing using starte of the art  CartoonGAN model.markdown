@@ -102,7 +102,7 @@ clear_output()
 {%endhighlight%}
 
 Use the script to perform model infrencing on your image.
-{% highlight ruby %}
+{% highlight python %}
 !python cartoonize.py \
     --batch_size 4 \
     --all_styles \

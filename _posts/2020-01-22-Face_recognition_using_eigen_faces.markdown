@@ -78,15 +78,15 @@ Here is the code to perform model inferencing with the trained model found in th
 
 
 Clone the repository from github
-{%highlight python%}
+{%highlight ruby%}
 
 """Code copied from "https://github.com/mnicnc404/CartoonGan-tensorflow"  """
-```python
+
 import os
 repo = "CartoonGan-tensorflow"
 !git clone https://github.com/HiteshAI/CartoonGan-tensorflow.git
 os.chdir(os.path.join(repo))
-```
+
 {%endhighlight%}
 
 
@@ -106,14 +106,14 @@ clear_output()
 {%endhighlight%}
 
 Use the script to perform model infrencing on your image.
-
-```python
+{% highlight ruby %}
 !python cartoonize.py \
     --batch_size 4 \
     --all_styles \
     --comparison_view horizontal \
     --max_resized_height 800
-```
+
+{% endhighlight %}
 
 
 
